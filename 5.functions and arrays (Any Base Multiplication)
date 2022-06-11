@@ -1,0 +1,70 @@
+import java.util.*;
+public class Main
+{
+public static void main(String[] args)
+{
+Scanner scn = new Scanner(System.in);
+int b = scn.nextInt();
+int n1 = scn.nextInt();
+int n2 = scn.nextInt();
+int d = getProduct(b, n1, n2);
+System.out.println(d);
+}
+public static int getProduct(int b, int n1, int n2)
+{
+    int d1=n2%10;
+    int d2=n2/10;
+    int result1=multiply(b, n1, d1);
+    int result2=multiply(b, n1, d2);
+    int result=sum(b,result1,result2*10);
+    return result;
+}
+public static int multiply(int b, int n, int d)
+{
+    int result=0,s=0,carry=0;
+    while(n!=0||carry>0)
+    {
+    int x=n%10;
+    n=n/10;
+    int a=x*d+carry;
+    if(a>=b)
+    {
+    carry=a/b;
+    a%=b;
+    }
+    else
+    {
+    carry=0;
+    }
+    result=result+a*(int)Math.pow(10,s);
+    s++;
+    }
+    return result;
+}
+public static int sum(int b, int result1, int result2)
+{
+    int remainder=0,q=0,carry=0,result=0;
+    int a1,b1;
+    while(result1!=0 || result2!=0 || carry==1)
+    {
+    a1=result1%10;
+    result1=result1/10;
+    b1=result2%10;
+    result2=result2/10;
+    int c=a1+b1+carry;
+    if(c>=b)
+    {
+        carry=1;
+        remainder=c-b;
+    }
+    else
+    {
+        carry=0;
+        remainder=c;
+    }
+    result=result+remainder*(int)Math.pow(10,q);
+    q++;
+    }
+    return result;
+}
+}
